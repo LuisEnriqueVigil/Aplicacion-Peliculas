@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 import 'package:pelis_app/models/pelicula_model.dart';
 import 'package:pelis_app/providers/peliculas_provider.dart';
 import 'package:pelis_app/search_delegate/search_delegate.dart';
+import 'package:pelis_app/widgets/fondo_home.dart';
+
 
 import 'package:pelis_app/widgets/horizontal_page.dart';
 
@@ -12,7 +15,7 @@ import 'package:pelis_app/widgets/title_en_cines.dart';
 
 
 
-class HomePage extends StatefulWidget { 
+class HomePage extends StatefulWidget {
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -21,15 +24,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   final peliculasProvider = new PeliculasProvider(); 
-
+  
   @override
   Widget build(BuildContext context) {
-
-
-
     peliculasProvider.getPopularMovie(); //carga las peliculas pero a su vez lanza el sink que esta contenido en su defincion
     peliculasProvider.getTopRated();
     peliculasProvider.getUpComming();
+
+    final size = MediaQuery.of(context).size; 
 
     return Scaffold(
       body: SafeArea(
@@ -42,17 +44,18 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 7.0),
                   EnCinesWidget(),
                   _traerTarjetas(), 
-                  SizedBox(height: MediaQuery.of(context).size.height*0.0015),
+                  SizedBox(height: size.height*0.0015),
                   _footerPeliculasPopulares(context), 
-                  SizedBox(height: MediaQuery.of(context).size.height*0.020),
+                  SizedBox(height: size.height*0.020),
                   _footerMovieTopRated(context),
-                  SizedBox(height: MediaQuery.of(context).size.height*0.030),
+                  SizedBox(height: size.height*0.030),
                   _footerMovieUpComming(context), 
-                  SizedBox(height: MediaQuery.of(context).size.height*0.035),
+                  SizedBox(height: size.height*0.035),
                 ],
               ),
             ),
             buildBuscador(context),
+
           ],
         ),
       ),
@@ -61,9 +64,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBuscador(BuildContext context) {
    
+    final size = MediaQuery.of(context).size; 
     return Positioned(
-      left: MediaQuery.of(context).size.width*0.69,
-      top: MediaQuery.of(context).size.height*0.01,
+      left: size.width*0.69,
+      top:  size.height*0.01,
       child: GestureDetector(
         onTap: (){
           showSearch(
@@ -72,34 +76,34 @@ class _HomePageState extends State<HomePage> {
             // query: 'Busca tu pelicula fav' //este es un mensaje precargado
           );
         },
-        child: Container(
-          // padding: EdgeInsets.all(8.0),
-          height: 40.0,
-          width:110.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: Color(0xff26D7AB),
-          ),
-          child: Center(
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  splashColor: Color(0xff032541),
-                  color: Colors.indigo,
-                  icon: Icon(Icons.search,size: 25.0), 
-                  onPressed: (){
-                    showSearch(
-                      context: context, 
-                      delegate: BusquedaData(),
-                      // query: 'Busca tu pelicula fav' //este es un mensaje precargado
-                    );
-                  }
-                ),
-               Text('Buscar',style: GoogleFonts.poppins(fontSize:15.0),)
-              ],
+        child:Container(
+            // padding: EdgeInsets.all(8.0),
+            height: 40.0,
+            width:110.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0),
+              color:Color(0xff26D7AB),
             ),
-          ),
-        ),
+            child: Center(
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    splashColor: Color(0xff032541),
+                    color: Colors.indigo,
+                    icon: Icon(Icons.search,size: 25.0), 
+                    onPressed: (){
+                      showSearch(
+                        context: context, 
+                        delegate: BusquedaData(),
+                        // query: 'Busca tu pelicula fav' //este es un mensaje precargado
+                      );
+                    }
+                  ),
+                 Text('Buscar',style: GoogleFonts.poppins(fontSize:15.0),)
+                ],
+              ),
+            ),
+            ),
       ),
     );
   }
@@ -138,6 +142,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.only(left:20.0,bottom: 5.0),
             child: Text('Lo más popular',style: GoogleFonts.poppins(fontSize:18.0,fontWeight:FontWeight.w500)),
           ), 
+
           StreamBuilder(
             stream: peliculasProvider.popularesStream,
             builder: (BuildContext context, AsyncSnapshot<List<Pelicula>> snapshot) {
@@ -232,4 +237,29 @@ class _HomePageState extends State<HomePage> {
 
 
   }
+
+  Widget _traerFondo (){ 
+
+    return FutureBuilder(
+      future: peliculasProvider.getNowPlaying(), 
+      builder: (BuildContext context,AsyncSnapshot <List<Pelicula>> snapshot ){
+        
+        //probamos ssi el snapshot trae info
+        if(snapshot.hasData){
+           return FondoHome(
+              peliculas: snapshot.data, 
+          );
+        }
+        else{
+          return Container(
+            height: 400.0,
+            child: Center(
+              child: CircularProgressIndicator()
+            ),
+          ); 
+        }
+      },
+    );
+  }
+  
 }

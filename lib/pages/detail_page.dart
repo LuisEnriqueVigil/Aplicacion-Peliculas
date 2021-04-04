@@ -20,15 +20,18 @@ class DetailPagePelicula extends StatelessWidget {
 
     return Scaffold(
       body: CustomScrollView(
+
         physics: BouncingScrollPhysics(),
         slivers: <Widget>[
-          _crearAppBar(pelicula),
+
+          _crearAppBar(pelicula,context), ///=> Tipo [silverAppBar]
+
           SliverList(   //parecido al listView 
             delegate: SliverChildListDelegate(
               //recibe una lista de widgets
               [
                 SizedBox(height: 10.0),
-                _posterTitulo(pelicula),
+                _posterTitulo(pelicula,context),
                 SizedBox(height: 20.0),
                 _title('Resumen'),
                 _descripcion(pelicula), 
@@ -39,6 +42,7 @@ class DetailPagePelicula extends StatelessWidget {
             ), 
           )
         ],
+
       )
     );
   }
@@ -52,12 +56,12 @@ class DetailPagePelicula extends StatelessWidget {
     );
   } 
 
- Widget _crearAppBar(Pelicula pelicula) {
-   
+ Widget _crearAppBar(Pelicula pelicula,BuildContext context) {
+   final size = MediaQuery.of(context).size; 
    return SliverAppBar(
      elevation: 2.0,
      backgroundColor: Color(0xff032541),
-     expandedHeight: 200.0, //que tan ancho sea expandido
+     expandedHeight: size.height*0.28, //que tan ancho sea expandido
      floating: false,
      pinned: true,
 
@@ -66,7 +70,7 @@ class DetailPagePelicula extends StatelessWidget {
 
        title: Container(
          padding: EdgeInsets.all(8.0),
-         height: 30.0, 
+         height:size.height*0.045, 
          decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
           color: Colors.grey.withOpacity(0.40)
@@ -92,7 +96,9 @@ class DetailPagePelicula extends StatelessWidget {
    );
  }
 
-  Widget _posterTitulo(Pelicula pelicula) {
+  Widget _posterTitulo(Pelicula pelicula,BuildContext context) {
+    
+    final size = MediaQuery.of(context).size;
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal:20.0),
@@ -110,7 +116,7 @@ class DetailPagePelicula extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image(
-                  height: 150,
+                  height: size.height*0.23,
                   image: NetworkImage(pelicula.getImagen())),
               ),
             ),
@@ -142,7 +148,7 @@ class DetailPagePelicula extends StatelessWidget {
                 SizedBox(height: 5.0),
 
                 Container(
-                  width: 115,
+                  width: size.width*0.29,
                   padding: EdgeInsets.symmetric(horizontal:5.0,vertical: 2.5),
                   decoration: BoxDecoration(
                     color:Color(0xff032541),

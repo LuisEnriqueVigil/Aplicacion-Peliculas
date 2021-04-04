@@ -16,6 +16,7 @@ class ActorPageInfo extends StatelessWidget {
   final actorinfoProvider =  new InfoActorProvider();
   @override
   Widget build(BuildContext context) {
+    
     final _screenSize = MediaQuery.of(context).size; 
     return Scaffold(
       body: Stack(
@@ -49,7 +50,7 @@ class ActorPageInfo extends StatelessWidget {
 
   Widget _photoActor(Size _screenSize) {
     return Container(
-      height: 210.0,
+      height: _screenSize.height*0.28,
       child: Center(
         child: 
             Container(
@@ -57,7 +58,7 @@ class ActorPageInfo extends StatelessWidget {
                 tag: actor.id,
                 child: CircleAvatar( 
                   backgroundImage: NetworkImage(actor.getPhotoActor()), 
-                  radius: 100.0,               
+                  radius: _screenSize.height*0.15,               
                 ),
               )
         ),

@@ -15,9 +15,9 @@ class WidgetInfoActor extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildLugarNacimiento(),
+          _buildLugarNacimiento(context),
           SizedBox(height: 10.0), 
-          _fechaNacimientoPopularity(), 
+          _fechaNacimientoPopularity(context), 
           SizedBox(height: 10.0),
           _buildBiografia()
         ],
@@ -40,21 +40,23 @@ class WidgetInfoActor extends StatelessWidget {
         );
   }
 
-  Widget _buildLugarNacimiento() {
+  Widget _buildLugarNacimiento(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
             padding: EdgeInsets.only(left:16.0,top: 7.0,bottom: 7.0),
-            height: 80.0,width: double.infinity,
+            height: size.height*0.13,
+            width: double.infinity,
             decoration: BoxDecoration(
               color: Color(0xff032541),
               borderRadius: BorderRadius.circular(20.0)
             ),  
-          child: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Row(
               children: <Widget>[
-                _datosActorRow(
+                _datosActor(
                   'Lugar de Nacimieto', 
-                  (actorInfo.placeOfBirth==null )?'no hay informacion':'${actorInfo.placeOfBirth}',
-                  Icons.accessibility_new
+                  (actorInfo.placeOfBirth==null )?'no hay informacion':'${actorInfo.placeOfBirth}'
                 ),
 
                 //icono de Nacimiento
@@ -77,14 +79,16 @@ class WidgetInfoActor extends StatelessWidget {
         );
   }
 
-  Widget _fechaNacimientoPopularity() {
+  Widget _fechaNacimientoPopularity(BuildContext context) {
+    final size = MediaQuery.of(context).size; 
     return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             //FECHA DE NACIMIENTO
             Container(
               padding: EdgeInsets.symmetric(vertical:8.0,horizontal: 15.0),
-              height: 80.0,width: 150.0,
+              height: size.height*0.12,
+              width: size.width*0.43,
               decoration: BoxDecoration(
                 color: Color(0xff032541),
                 borderRadius: BorderRadius.circular(20.0)
@@ -100,7 +104,8 @@ class WidgetInfoActor extends StatelessWidget {
             //PUPULARIDAD
             Container(
                padding: EdgeInsets.symmetric(vertical:8.0,horizontal: 15.0),
-              height: 80.0,width: 150.0,
+              height:  size.height*0.12,
+              width: size.width*0.43,
               decoration: BoxDecoration(
                 color: Color(0xff032541),
                 borderRadius: BorderRadius.circular(20.0)

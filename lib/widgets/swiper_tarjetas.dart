@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:pelis_app/models/notifier_model.dart';
 import 'package:pelis_app/models/pelicula_model.dart';
 import 'package:pelis_app/pages/detail_page.dart';
+import 'package:pelis_app/widgets/fondo_home.dart';
 // import 'package:pelis_app/widgets/title_en_cines.dart';
 import 'package:pelis_app/widgets/vote_circular.dart';
 
@@ -18,7 +20,7 @@ class SwiperTarjetas extends StatefulWidget {
 class _SwiperTarjetasState extends State<SwiperTarjetas> {
   @override
   Widget build(BuildContext context) {
-
+    final _modelNotifier = ModelNotifer(); 
     final _screenSize = MediaQuery.of(context).size; 
     return Column(
       children: <Widget>[
@@ -31,6 +33,7 @@ class _SwiperTarjetasState extends State<SwiperTarjetas> {
             itemBuilder: (BuildContext context,int index){
               //TODO: aqui se puede incorporar algunas funciones
               widget.peliculas[index].uniqueID = '${widget.peliculas[index].id}-tarjetas'; 
+              _modelNotifier.page = index; 
 
               return GestureDetector(
                 onTap: (){ 

@@ -5,10 +5,12 @@ class FondoCirculo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Positioned (
-      top: -220,right: -20.0,
+      top: -size.height*0.30,right: -2.5,
       child: Container(
-        height: 400.0,width: 400.0,
+        height: size.height*0.62,
+        width: size.height*0.61,
         decoration: BoxDecoration(
           color:Color( 0xff032541), 
           shape:BoxShape.circle,

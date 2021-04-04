@@ -4,7 +4,7 @@ import 'package:pelis_app/pages/detail_page.dart';
 
 class HorizontalPageView extends StatelessWidget {
 
-  final List<Pelicula> peliculas; 
+  final List<Pelicula> peliculas;  
   final Function siguientePagina; 
   final String uniqueIDHero;
   HorizontalPageView({@required this.peliculas,@required this.siguientePagina, this.uniqueIDHero,});
@@ -13,6 +13,7 @@ class HorizontalPageView extends StatelessWidget {
             initialPage: 1, 
             viewportFraction: 0.3
     );  
+    
   @override
   Widget build(BuildContext context) {
 

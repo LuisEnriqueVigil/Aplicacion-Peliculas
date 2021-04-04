@@ -4,7 +4,7 @@
 //esta instancia recibira toda la lista de actores
 
 class Cast {
- 
+  
   List<Actor> actores = new List(); 
 
   //instacia de esta clase
