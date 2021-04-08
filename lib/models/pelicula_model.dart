@@ -4,7 +4,7 @@
 
 class Peliculas { 
 
-  List<Pelicula> itemsPeliculas = new List(); 
+  List<Pelicula> itemsPeliculas = []; 
   Peliculas();
 
   //este constructor me va a permitir recibir el mapa de todas las peliculas del API ppara

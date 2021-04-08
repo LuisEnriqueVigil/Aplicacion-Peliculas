@@ -50,6 +50,7 @@ class ActorPageInfo extends StatelessWidget {
 
   Widget _photoActor(Size _screenSize) {
     return Container(
+      // color: Colors.red,
       height: _screenSize.height*0.28,
       child: Center(
         child: 

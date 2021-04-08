@@ -27,7 +27,7 @@ class PeliculasProvider{
 
   //TODO: uso del stream 
 
-  List<Pelicula> _peliculasPopulares = new List(); 
+  List<Pelicula> _peliculasPopulares = []; 
 
                           //se especifica que tipo de informacion se transmitira
   final _popularesStreamController = StreamController<List<Pelicula>>.broadcast(); 
@@ -40,7 +40,7 @@ class PeliculasProvider{
 
   //---------------------------------------------------
   //STREAM PARA TRAER LAS PELICULAS MEJOR RANKEADAS 
-  List<Pelicula> _peliculasTopRated = new List(); 
+  List<Pelicula> _peliculasTopRated = []; 
   
   final _topRatedStreamController = StreamController<List<Pelicula>>.broadcast(); 
 
@@ -50,7 +50,7 @@ class PeliculasProvider{
   
   //----------------------------------------------------
   //STREAM PARA TRAER PELICULAS EN ESTRENO 
-  List<Pelicula> _peliculasProximas = new List(); 
+  List<Pelicula> _peliculasProximas = []; 
 
   final _proxMovieStreamController = StreamController<List<Pelicula>>.broadcast(); 
   

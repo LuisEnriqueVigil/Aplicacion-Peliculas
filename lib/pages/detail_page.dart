@@ -148,7 +148,7 @@ class DetailPagePelicula extends StatelessWidget {
                 SizedBox(height: 5.0),
 
                 Container(
-                  width: size.width*0.29,
+                  width: size.width*0.30,
                   padding: EdgeInsets.symmetric(horizontal:5.0,vertical: 2.5),
                   decoration: BoxDecoration(
                     color:Color(0xff032541),

@@ -5,7 +5,7 @@
 
 class Cast {
   
-  List<Actor> actores = new List(); 
+  List<Actor> actores = []; 
 
   //instacia de esta clase
   Cast.fromJsonList(List<dynamic> jsonList){ 
